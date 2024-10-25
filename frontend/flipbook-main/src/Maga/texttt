@@ -1,0 +1,142 @@
+import React, { useState } from 'react';
+import HTMLFlipBook from 'react-pageflip';
+import { Document, Page, pdfjs } from 'react-pdf';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
+import pdf from './Total-Skincare-Guide.pdf';
+import ByteBeatJan2024 from './ByteBeatJan2024.pdf';
+import bookkk from './bookkk.pdf';
+import Skin from './Skin-Magazine-Dr-Vishal-Agarwal.pdf';
+import RMB from './RMB-Beauty-Guide.pdf';
+
+
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
+
+const SkeletonPage = React.forwardRef((props, ref) => {
+    return (
+        <div className="demoPage" ref={ref}>
+            <div className="h-[570px] w-[400px] bg-white p-4">
+                <Skeleton height={30} className="mb-4" />
+                <Skeleton count={20} />
+                <div className="mt-4">
+                    <Skeleton height={200} />
+                </div>
+            </div>
+        </div>
+    );
+});
+
+SkeletonPage.displayName = 'SkeletonPage';
+
+const PageContent = React.forwardRef(({ pageNumber }, ref) => {
+    return (
+        <div className="demoPage" ref={ref}>
+            <Page
+                pageNumber={pageNumber}
+                width={400}
+                height={570}
+                renderAnnotationLayer={false}
+                renderTextLayer={false}
+                loading={() => (
+                    <div className="h-[570px] w-[400px] bg-white p-4">
+                        <Skeleton height={30} className="mb-4" />
+                        <Skeleton count={15} />
+                        <div className="mt-4">
+                            <Skeleton height={200} />
+                        </div>
+                    </div>
+                )}
+            />
+        </div>
+    );
+});
+
+PageContent.displayName = 'PageContent';
+
+function Flipbook() {
+    const [numPages, setNumPages] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
+    const [currentPdf, setCurrentPdf] = useState(pdf);
+
+    // Sample PDF options - replace with your actual PDFs
+    const pdfOptions = [
+        { title: 'Skincare Guide', file: ByteBeatJan2024},
+        { title: 'Makeup Tips', file: bookkk }, // Replace with actual PDF
+        { title: 'Hair Care Essentials', file: Skin }, // Replace with actual PDF
+        { title: 'Wellness Journal', file: RMB }, // Replace with actual PDF
+    ];
+
+    function onDocumentLoadSuccess({ numPages }) {
+        console.log('Document loaded successfully with', numPages, 'pages');
+        setNumPages(numPages);
+        setIsLoading(false);
+    }
+
+    function onDocumentLoadError(error) {
+        console.error('Error loading PDF:', error);
+        setIsLoading(false);
+    }
+
+    const handlePdfChange = (newPdf) => {
+        setIsLoading(true);
+        setCurrentPdf(newPdf);
+    };
+
+    return (
+        <div className="flex flex-col gap-5 justify-center items-center bg-gray-900 min-h-screen p-4">
+            <h1 className="text-4xl font-bold text-white mb-4">This Week's Beauty Magazine</h1>
+            
+            <div className="flex flex-col md:flex-row gap-8 w-full max-w-6xl">
+                <div className="md:w-1/4">
+                    <div className="bg-gray-800 p-4 rounded-lg">
+                        <h2 className="text-xl font-semibold text-white mb-4">More Magazines</h2>
+                        <div className="flex flex-col gap-2">
+                            {pdfOptions.map((option, index) => (
+                                <button
+                                    key={index}
+                                    onClick={() => handlePdfChange(option.file)}
+                                    className={`text-left px-4 py-2 rounded-md transition-all ${
+                                        currentPdf === option.file
+                                            ? 'bg-purple-600 text-white'
+                                            : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+                                    }`}
+                                >
+                                    {option.title}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+                
+                <div className="md:w-3/4">
+                    <Document
+                        file={currentPdf}
+                        onLoadSuccess={onDocumentLoadSuccess}
+                        onLoadError={onDocumentLoadError}
+                    >
+                        <HTMLFlipBook width={400} height={570} showCover={true} className="shadow-2xl">
+                            {isLoading ? (
+                                [...Array(5)].map((_, index) => (
+                                    <SkeletonPage key={`skeleton-${index}`} />
+                                ))
+                            ) : (
+                                numPages &&
+                                [...Array(numPages)].map((_, index) => (
+                                    <PageContent key={`page-${index}`} pageNumber={index + 1} />
+                                ))
+                            )}
+                        </HTMLFlipBook>
+                    </Document>
+
+                    {!isLoading && !numPages && (
+                        <div className="text-red-500 text-center mt-4">
+                            Failed to load PDF. Please check the file and try again.
+                        </div>
+                    )}
+                </div>
+            </div>
+        </div>
+    );
+}
+
+export default Flipbook;

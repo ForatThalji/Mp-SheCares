@@ -1,0 +1,193 @@
+import React, { useState } from 'react';
+import axios from 'axios';
+import creamSvg from '../../assets/creamSvg.png';
+import facialFoam from '../../assets/facialFoam.png';
+import facialMask from '../../assets/facialMask.png';
+import sunblock from '../../assets/sunblock.png';
+import serum from '../../assets/serum.png';
+import { useNavigate } from 'react-router-dom';
+
+function Search() {
+  const [category_id, setcategory_id] = useState('');
+  const [skinType, setSkinType] = useState('');
+  const [ageRange, setAgeRange] = useState('');
+  const [priceRange, setPriceRange] = useState('');
+  const [products, setProducts] = useState([]);
+  const navigate = useNavigate();
+  
+  const handleIconClick = (id) => {
+    setcategory_id(id);
+    console.log(`Category ID ${id} selected`);
+  };
+
+  const handleChange = (event) => {
+    const value = event.target.dataset.path;
+    if (value) {
+      navigate(value);
+    }
+  };
+  
+  const handleView = ({ category_id, skinType }) => {
+    navigate(`/Alternative?category=${category_id}&skinType=${skinType}`);
+  };
+  
+  const handleSearch = async () => {
+    try {
+      const response = await axios.get('http://localhost:3001/api/products/filters', {
+        params: {
+          category_id,
+          skin_type: skinType,
+          age_range: ageRange,
+          price_range: priceRange
+        }
+      });
+      console.log(ageRange);
+      console.log(skinType);
+      setProducts(response.data.products);
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    }
+  };
+
+  return (
+    <div>
+      <div className="icons flex justify-around">
+        <button onClick={() => handleIconClick(1)}>
+          <img src={creamSvg} width="130px" height="130px" className="icon" alt="Cleanser" />
+          <p>Cleanser</p>
+        </button>
+        <button onClick={() => handleIconClick(2)}>
+          <img src={facialMask} width="130px" height="130px" className="icon" alt="Mask" />
+          <p>Mask</p>
+        </button>
+        <button onClick={() => handleIconClick(3)}>
+          <img src={facialFoam} width="130px" height="130px" className="icon" alt="Moist" />
+          <p>Moist</p>
+        </button>
+        <button onClick={() => handleIconClick(4)}>
+          <img src={sunblock} width="130px" height="130px" className="icon" alt="Sunblock" />
+          <p>Sunblock</p>
+        </button>
+        <button onClick={() => handleIconClick(5)}>
+          <img src={serum} width="130px" height="130px" className="icon" alt="Serum" />
+          <p>Serum</p>
+        </button>
+      </div>
+
+      <div className='flex mx-44 my-60 mb-24'>
+        <form className="max-w-sm mx-auto w-[300px]">
+          <label htmlFor="Skin Type" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Skin Type</label>
+          <select
+            id="Skin Type"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            onChange={(e) => setSkinType(e.target.value)}
+          >
+            <option value="">Choose Skin Type</option>
+            <option value="Normal">Normal</option>
+            <option value="Oily">Oily</option>
+            <option value="Combination">Combination</option>
+            <option value="Dry">Dry</option>
+          </select>
+        </form>
+
+        <form className="max-w-sm mx-auto w-[300px]">
+          <label htmlFor="Age" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Age</label>
+          <select
+            id="Age"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            onChange={(e) => setAgeRange(e.target.value)}
+          >
+            <option value="">Choose Age</option>
+            <option value="1-10">1 - 10</option>
+            <option value="11-20">11 - 20</option>
+            <option value="21-40">21 - 40</option>
+            <option value="41-60">41 - 60</option>
+          </select>
+        </form>
+
+        <form className="max-w-sm mx-auto w-[300px]">
+          <label htmlFor="price" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price</label>
+          <select
+            id="price"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            onChange={(e) => setPriceRange(e.target.value)}
+          >
+            <option value="">Choose Price</option>
+            <option value="1-10">1 - 10</option>
+            <option value="10-20">10 - 20</option>
+            <option value="20-30">20 - 30</option>
+            <option value="30-40">30 - 40</option>
+          </select>
+        </form>
+
+        <button
+          type="button"
+          onClick={handleSearch}
+          className="text-white w-24 h-12 mx-4 my-6 bg-greenRoot hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        >
+         Search
+        </button>
+      </div>
+
+      <div className="flex flex-wrap justify-center">
+        {products.map((product, index) => (
+          <ProductCard
+            key={index}
+            product={product}
+            category_id={category_id} // Pass the current category_id
+            skinType={skinType} // This should be passed as the current skinType
+            handleChange={handleChange}
+            handleView={handleView}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// passing as a props 
+const ProductCard = ({ product, category_id, skinType, handleChange, handleView }) => (
+  <div className="mb-3 mx-4">
+    <div className="relative flex mx-8 w-[300px] h-[450px] mb-8 max-w-xs flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md">
+      {product.boycott ? (
+        <>
+          <img
+            className="object-cover w-full h-[270px]"
+            src={product.image_url}
+            alt="product image"
+          />
+          <p className="text-gray-500 text-sm mt-2">{product.description}</p>
+
+          <span
+            className="absolute top-0 right-0 m-2 rounded-full bg-black px-2 text-center text-sm font-medium text-white animate-bounce cursor-pointer"
+            data-path={`/alternative?category=${category_id}&skinType=${skinType}`} // Pass category and skinType as query params
+            onClick={handleChange}
+          ></span>
+          <span
+            onClick={() => handleView({ category_id, skinType })}
+            className="absolute top-0 right-0 m-2 rounded-full bg-black px-2 text-center text-sm font-medium text-white animate-bounce"
+          >
+            <svg
+              width="40px"
+              height="40px"
+              viewBox="0 0 64 64"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+              role="img"
+              className="iconify iconify--emojione"
+              preserveAspectRatio="xMidYMid meet"
+            >
+              <path fill="#ed4c5c" d="M32 62L62 2H2z"></path>
+            </svg>
+          </span>
+        </>
+      ) : (
+        <p>Product is not available</p>
+      )}
+    </div>
+  </div>
+);
+
+
+
+export default Search;
