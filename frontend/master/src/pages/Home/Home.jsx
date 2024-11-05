@@ -21,6 +21,7 @@ import g2 from '../../assets/g2.jpg';
 import g4 from '../../assets/g4.jpg';
 import g3 from '../../assets/g3.jpg';
 import { Link } from 'react-router-dom';
+import Header_2 from '../../assets/Header_2.jsx'; // Update this import based on your file type
 
 // import ourServices from './src/assets/ourServices.png'
 
@@ -30,7 +31,7 @@ function Home() {
   return (
    
 <div className=''>
-  {/* hero */}
+  {/* hero */}<Header_2 />
       <section id="hero " className='mx-44 mb-16'>
   <div className="container text-center w-20px">
 
@@ -145,7 +146,18 @@ function Home() {
             So it is Combination skin, oily or normal skin? 
             </p>
             <p>To Know thhat try Test skin!</p>
+            <div  >
+       <button  className="flex items-center justify-center mx-18 my-4 bg-greenRoot rounded hover:bg-red-600 px-5 py-4 text-sm text-grayRoot">
+       <Link
+            to="/Test"
+            className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+          >
+         Test Now
+         </Link>
+       </button>
+    </div>
           </div>
+          
           <div className="grid grid-cols-2 gap-4 mt-8">
             <img
               className="w-full rounded-lg bg-grayRoot -mt-10"
@@ -158,6 +170,7 @@ function Home() {
               alt="office content 2"
             />
           </div>
+     
         </div>
       </section>
 {/* by categ */}

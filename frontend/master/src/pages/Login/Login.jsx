@@ -30,10 +30,12 @@ function Login() {
     try {
       const response = await axios.post('http://localhost:3001/api/users/login', { email, password }, { withCredentials: true });
       // Handle successful login
-      console.log(response.data);
+      console.log(response.data.token);
 
-      navigate('/Home');
-
+      navigate('/');
+ const token = response.data.token; // Assuming 'token' is the cookie name
+    
+    console.log("token from login = "+token)
       const userId = response.data.user.id; // Change this based on your API response structure
       
       localStorage.setItem('userI', userId); // Store the user ID in localStorage
@@ -50,6 +52,7 @@ function Login() {
   // Check if token exists in cookies on component mount
   useEffect(() => {
     const token = getCookie('token'); // Assuming 'token' is the cookie name
+    
     console.log("token from login = "+token)
     if (token) {
       setIsTokenPresent(true);
@@ -59,12 +62,7 @@ function Login() {
   }, []); // Empty dependency array means this runs once when the component mounts
 
   return (
-    <div> {isTokenPresent && (
-           
-      <Header_2 /> 
-  
-  )}
-      <div className="flex items-center justify-center min-h-screen bg-gray-100">
+    <div>  <div className="flex items-center justify-center min-h-screen bg-gray-100">
         <div className="relative flex flex-col m-6 space-y-8 bg-white shadow-2xl rounded-2xl md:flex-row md:space-y-0">
          
           <div className="flex flex-col justify-center p-8 md:p-14">

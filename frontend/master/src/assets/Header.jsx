@@ -5,6 +5,9 @@ import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 import { UserCircle, ShoppingCart } from 'lucide-react';
+
+import Login from '../pages/Login/Login'; // Update this import based on your file type
+
 const userId = localStorage.getItem('userI');
 
 function Header() {
@@ -21,6 +24,7 @@ function Header() {
       fetchCartItemCount(); // استدعاء دالة لجلب عدد العناصر في السلة
     } else {
       setIsLoggedIn(false);
+      
     }
   }, [userId]);
 
@@ -78,9 +82,13 @@ function Header() {
       <div className='headerImg'></div>
       <nav className="bg-white dark:bg-gray-900 w-full start-0 dark:border-gray-600">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-          <a href="https://flowbite.com/" className="flex items-center space-x-3 rtl:space-x-reverse">
-            <img className='h-24' src={logo} width={100} alt="Logo" />
-          </a>
+         
+          <Link to="/" >
+                  <img
+                   className='h-24' src={logo} width={100} alt="Logo"
+                  />
+                  
+          </Link>
           <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse items-center">
             {isLoggedIn ? (
               <>
@@ -115,7 +123,7 @@ function Header() {
           <div className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
             <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
               <li>
-                <Link to="/Home" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 dark:text-white">Home</Link>
+                <Link to="/" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 dark:text-white">Home</Link>
               </li>
               <li>
                 <Link to="/About" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 dark:text-white">About</Link>

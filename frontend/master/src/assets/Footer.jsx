@@ -1,4 +1,6 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
+
 
 function Footer() {
   return (
@@ -9,44 +11,24 @@ function Footer() {
       <span className='font-irish flex justify-center text-4xl'>She Cares</span>
       <ul className="text-lg flex items-center justify-center flex-col gap-7 md:flex-row md:gap-12 transition-all duration-500 py-2 mb-4 border-b border-gray-200">
         <li>
-          <a
-            className="text-gray-800 hover:text-gray-900"
-            href="#"
-          >
-           SheCares
-          </a>
+        <Link to="/">She Cares</Link>
+
         </li>
         <li>
-          <a
-            className=" text-gray-800 hover:text-gray-900"
-            href="#"
-          >
-            Products
-          </a>
+        <Link to="/Products">Products</Link>
+
         </li>
         <li>
-          <a
-            className=" text-gray-800 hover:text-gray-900"
-            href="#"
-          >
-            Cotact us
-          </a>
+        <Link to="/Contact">Contact</Link>
+
         </li>
         <li>
-          <a
-            className=" text-gray-800 hover:text-gray-900"
-            href="#"
-          >
-            Blogs
-          </a>
+        <Link to="/Flipbook">Magazine</Link>
+
         </li>
         <li>
-          <a
-            className=" text-gray-800 hover:text-gray-900"
-            href="#"
-          >
-            Support
-          </a>
+        <Link to="/Contact">Support</Link>
+
         </li>
       </ul>
       <div className="flex space-x-10 justify-center items-center mb-10">

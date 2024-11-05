@@ -1,7 +1,8 @@
 const db = require('../config/db');
 const jwt = require('jsonwebtoken');
-
 const bcrypt = require('bcryptjs');
+const passport = require('passport');
+
 
 exports.register = async (req, res) => {
   const { first_name, last_name, email, password, phone_number, address, profile_picture, date_of_birth } = req.body;
@@ -124,7 +125,7 @@ exports.login = async (req, res) => {
   }
 };
 
-// Controller to get user by ID
+
 exports.getUserById = async (req, res) => {
   const { id } = req.params; // Get the user ID from the request parameters
 
@@ -147,8 +148,6 @@ exports.getUserById = async (req, res) => {
 };
 
 
-const passport = require('passport');
-
 // Initiate Google Authentication
 exports.googleAuth = passport.authenticate('google', {
   scope: ['profile', 'email'],
@@ -160,7 +159,6 @@ exports.googleAuthCallback = passport.authenticate('google', {
   successRedirect: '/dashboard', // Redirect after successful login
 });
 
-// في ملف الموديلز الخاص بك
 exports.logout = (req, res) => {
   res.clearCookie('token', {
     httpOnly: true,

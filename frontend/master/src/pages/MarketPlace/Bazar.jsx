@@ -1,24 +1,27 @@
 import React from 'react';
 import { ArrowDownCircle, Heart, ShieldCheck, Coins } from 'lucide-react';
 import {Link} from 'react-router-dom';
-import HandMadeProducts from '../Cart/Cart';
+import HandMadeProducts from '../MarketPlace/HandMadeProducts';
+import bazarViedo from '../../assets/bazarVideo.mp4'
 export default function Bazar() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
       <div className="relative h-screen flex items-center justify-center">
         {/* Background Image */}
-        <div 
-          className="absolute inset-0 z-0"
-          style={{
-            backgroundImage: "url('https://i.pinimg.com/564x/87/72/f7/8772f7ab9cd477af093af3eaf6f1b645.jpg')",
-            backgroundSize: 'cover',
-            opacity:.7,
-            backgroundPosition: 'center',
-          }}
-        >
-          <div className="absolute inset-0 bg-black opacity-50"></div>
-        </div>
+        <div className="absolute inset-0 z-0">
+  <video
+    autoPlay
+    loop
+    muted
+    className="absolute inset-0 w-full h-full object-cover"
+    style={{ opacity: 0.7 }}
+  >
+    <source src={bazarViedo} type="video/mp4" />
+  </video>
+  <div className="absolute inset-0 bg-black opacity-50"></div>
+</div>
+
         
         {/* Content */}
         <div className="relative z-10 text-center text-white px-4">
@@ -28,7 +31,7 @@ export default function Bazar() {
           Join our community at She Cares Bazar, where we offer a unique collection of handmade skincare products to make your skin glow with beauty.          </p>
           <div className="flex justify-center space-x-4">
             <button className="bg-greenRoot text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-600 transition duration-300">
-                <Link to="/Cart">
+                <Link to="/HandMadeProducts">
               Show products
               </Link>
             </button>

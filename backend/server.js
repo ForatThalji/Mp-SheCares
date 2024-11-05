@@ -17,6 +17,8 @@ const cartRoutes = require('./routes/cartRoutes');
 const contactRoutes = require('./routes/contactRoutes');
 const sellerRoutes = require('./routes/sellerRoutes');
 const handmadeRoutes = require('./routes/handmadeRoutes');
+const checkout = require('./routes/checkoutRoutes');
+
 const paypal = require("paypal-rest-sdk");
 
 paypal.configure({
@@ -65,10 +67,10 @@ app.use('/api/cart', cartRoutes);
 app.use('/api/contact', contactRoutes);
 app.use('/api/seller', sellerRoutes);
 app.use('/api/handmade', handmadeRoutes);
+app.use('/api/checkout', checkout);
 
 
 
-// اختبار الاتصال بقاعدة البيانات
 db.raw('SELECT NOW()')
   .then(() => {
     console.log('Database connected successfully');
@@ -97,7 +99,7 @@ db.raw('SELECT NOW()')
         cancel_url: "http://localhost:3001/cancel", // Cancel redirect URL
       },
     };
-  
+    app.use(express.urlencoded({ extended: true })); // For parsing application/x-www-form-urlencoded
     paypal.payment.create(create_payment_json, (error, payment) => {
       if (error) {
         console.error(error);

@@ -21,13 +21,12 @@ const getStrengthLabel = (strength) => {
 
 const getStrengthColor = (strength) => {
   switch (strength) {
-    case 4: return 'bg-green-500 text-green-700';
-    case 3: return 'bg-yellow-500 text-yellow-700';
-    case 2: return 'bg-orange-500 text-orange-700';
-    default: return 'bg-red-500 text-red-700';
+    case 4: return 'bg-green-500 text-green-700'; // Strong
+    case 3: return 'bg-yellow-500 text-yellow-700'; // Moderate
+    case 2: return 'bg-orange-500 text-orange-700'; // Weak
+    default: return 'bg-red-500 text-red-700'; // Very Weak
   }
 };
-
 const PasswordStrengthBar = ({ password }) => {
   const strength = calculateStrength(password);
   const strengthLabel = getStrengthLabel(strength);

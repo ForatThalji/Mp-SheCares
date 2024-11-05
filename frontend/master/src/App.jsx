@@ -51,8 +51,8 @@ function App() {
           {!hideHeaderPages.includes(location.pathname) && <Header />}
 
           <Routes>
-            <Route path="/" element={<Reg />} />
-            <Route path="/Home" element={<Home />} />
+            <Route path="/Reg" element={<Reg />} />
+            <Route path="/" element={<Home />} />
             <Route path="/Header_2" element={<Header_2 />} />
             <Route path="/UserProfile" element={<UserProfile />} />
             <Route path="/SkeletonLoader" element={<SkeletonLoader />} />

@@ -109,45 +109,6 @@ exports.searchProductsByFilter = async (req, res) => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// // Controller function to fetch alternative products based on category_id and skin type
-// exports.getAlternativeProducts = async (req, res) => {
-//   const { category_id, skinType } = req.query;
-
-//   try {
-//     // Query the database for products with matching category and skin type using Knex
-//     const products = await db('Products')
-//       .where({
-//         category_id: category_id,
-//         skin_type: skinType
-//       });
-
-//     if (products.length > 0) {
-//       res.status(200).json({ success: true, products });
-//     } else {
-//       res.status(404).json({ success: false, message: 'No alternative products found' });
-//     }
-//   } catch (error) {
-//     console.error('Error fetching alternative products:', error);
-//     res.status(500).json({ success: false, message: 'Server error' });
-//   }
-// };
-
 exports.getAlternativeProducts = async (req, res) => {
   const { category_id, skin_type } = req.query;
 

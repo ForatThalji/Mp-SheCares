@@ -19,6 +19,17 @@ const createAppointment = async (req, res) => {
       return res.status(400).json({ error: 'Invalid time slot selected' });
     }
 
+    // Check if the time slot is already booked for the expert on the same date
+    const existingAppointment = await db('Appointments')
+      .where({ expert_id, session_date, time })
+      .first();
+
+    if (existingAppointment) {
+      return res.status(400).json({
+        error: 'This time slot is already booked. Please choose another time.',
+      });
+    }
+
     // Insert new appointment into the database
     const [newAppointment] = await db('Appointments')
       .insert({
@@ -26,21 +37,19 @@ const createAppointment = async (req, res) => {
         user_id,
         session_date,
         session_type,
-        time, // Include the selected time slot
+        time,
       })
       .returning('*');
 
     // Respond with the newly created appointment
     res.status(201).json(newAppointment);
   } catch (error) {
-    // Check if the error is related to foreign key violation
-    if (error.code === '23503') { // Postgres error code for foreign key violation
+    if (error.code === '23503') {
       return res.status(400).json({
         error: 'Foreign key constraint failed. Make sure the expert_id and user_id exist in their respective tables.',
       });
     }
 
-    // Handle other errors
     console.error('Error creating appointment:', error);
     res.status(500).json({ error: 'An error occurred while creating the appointment' });
   }

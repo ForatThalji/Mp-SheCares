@@ -6,7 +6,12 @@ import facialFoam from '../../assets/facialFoam.png';
 import facialMask from '../../assets/facialMask.png';
 import sunblock from '../../assets/sunblock.png';
 import serum from '../../assets/serum.png';
+import tips from '../../assets/tips.jpg';
+
+import brusher from '../../assets/brusher.png';
+
 import { useNavigate } from 'react-router-dom';
+// import LuxuryInstructionCard from '../../Components/LuxuryInstructionCard';
 
 function Search() {
   const [category_id, setCategoryId] = useState('');
@@ -57,8 +62,16 @@ function Search() {
 
   return (
     <div>
+
       {/* Icon Selection */}
       <div className="icons flex justify-around">
+     
+
+        {/* <div className="bg-pinkRoot w-64 h-65 -ml-60">dd</div> */}
+        <div className=''>
+        {/* <LuxuryInstructionCard /> */}
+
+        </div>
         <button onClick={() => handleIconClick(1)}>
           <img src={creamSvg} width="130px" height="130px" alt="Cleanser" />
           <p>Cleanser</p>
@@ -69,7 +82,7 @@ function Search() {
         </button>
         <button onClick={() => handleIconClick(3)}>
           <img src={facialFoam} width="130px" height="130px" alt="Moist" />
-          <p>Moist</p>
+          <p>Moisturizer</p>
         </button>
         <button onClick={() => handleIconClick(4)}>
           <img src={sunblock} width="130px" height="130px" alt="Sunblock" />
@@ -80,6 +93,22 @@ function Search() {
           <p>Serum</p>
         </button>
       </div>
+
+
+
+      {/* <div className="relative w-67 h-72 -ml-60">
+  <span
+  className="absolute top-12 left-3 mt-[100px] w-[270px] text-center text-white font-light text-sm bg-black bg-opacity-50 p-1 "
+  style={{ transform: 'rotate(350deg)',color:'black'}} // Change 30 to your desired degree
+>
+First, select a category, then choose your skin type and specify the price and age ranges; if a product is boycotted, click the red triangle to view alternatives.
+</span>
+
+
+  
+</div> */}
+  {/* <img className="w-[600px] h-[300px] mt-10" src={brusher} alt="Description of image" /> */}
+
 
       {/* Search Filters */}
       <div className="flex mx-44 my-60 mb-24">
@@ -98,7 +127,7 @@ function Search() {
         {/* Price Range Filter */}
         <FilterDropdown
           label="Price"
-          options={["1-10", "10-20", "20-30", "30-40"]}
+          options={["1-5 JOD", "6-11 JOD", "12-17 JOD", "18-25 JOD"]}
           onChange={(e) => setPriceRange(e.target.value)}
         />
         <button
@@ -145,6 +174,7 @@ const FilterDropdown = ({ label, options, onChange }) => (
 );
 
 // Product Card Component
+// Product Card Component
 const ProductCard = ({ product, category_id, skinType, handleView }) => (
   <div className="mb-6 mx-4">
     <div className="relative flex flex-col w-[300px] h-[450px] overflow-hidden rounded-xl bg-grayRoot shadow-3xl transition-all duration-700 hover:shadow-xl">
@@ -168,23 +198,23 @@ const ProductCard = ({ product, category_id, skinType, handleView }) => (
           </p>
         </div>
       </div>
-      <span
-        className="absolute top-3 right-3 flex items-center justify-center w-12 h-12 rounded-full bg-red-600 text-white shadow-md hover:bg-red-700 transition-colors duration-300 cursor-pointer animate-bounce"
-        onClick={() => handleView({ category_id, skinType })}
-      >
-    <svg
-  width="34"
-  height="34"
-  viewBox="0 0 24 24"
-  fill="none"
-  xmlns="http://www.w3.org/2000/svg"
->
-  <path d="M12 22L2 4H22L12 22Z" fill="red" />
-</svg>
 
-      </span>
+      {/* Conditional Red Triangle */}
+      {product.boycott && (
+       <span
+       className="absolute top-3 right-3 flex items-center justify-center w-12 h-12 rounded-full bg-red-600 text-white shadow-md hover:bg-red-700 transition-colors duration-300 cursor-pointer animate-bounce"
+       onClick={() => handleView({ category_id, skinType })}
+     >
+       <svg width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+         <path d="M12 22L2 4H22L12 22Z" fill="red" />
+       </svg>
+     </span>
+      )}
+
+      
     </div>
   </div>
 );
+
 
 export default Search;
