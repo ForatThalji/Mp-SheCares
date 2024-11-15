@@ -38,6 +38,7 @@ function Cart() {
   };
 
   const totalPrice = safeCartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  localStorage.setItem('totalPrice', totalPrice);
 
   return (
     <div className="bg-gray-100 min-h-screen py-12 px-4 sm:px-6 lg:px-8">

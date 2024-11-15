@@ -41,7 +41,7 @@ function Pop() {
   return (
     <div>
       <section className="dark:bg-gray-900" style={{ display: isHidden ? 'none' : 'block' }}>
-        <div className="mx-44 gap-16 items-center py-8 px-4 max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-6">
+        <div className="container mx-auto py-8 px-4 max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-6">
           <div className="font-light text-gray-500 sm:text-lg dark:text-gray-400">
             <h2 className="mb-4 text-4xl tracking-tight font-bold text-gray-900 dark:text-white">
               Let's Know What is Your Skin Type?!
@@ -61,7 +61,7 @@ function Pop() {
               Show Result
             </button>
           </div>
-          <div className="grid grid-cols-2 gap-4 mt-8">
+          <div className="grid grid-cols-2 gap-4 mt-8 lg:grid-cols-2">
             <img className="w-full rounded-lg bg-grayRoot -mt-10" src={quesremove} alt="office content 1" />
             <img className="mt-4 w-full lg:mt-10 rounded-lg" src={test2} alt="office content 2" />
           </div>
@@ -139,7 +139,7 @@ function Pop() {
                   </p>
                 </div>
                 <div>
-                  <img className="w-[40%]" src={test2} alt="Skin type result" />
+                  <img className="w-[40%] mt-4 mx-auto" src={test2} alt="Skin type result" />
                 </div>
               </div>
             </div>

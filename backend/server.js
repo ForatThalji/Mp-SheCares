@@ -18,6 +18,8 @@ const contactRoutes = require('./routes/contactRoutes');
 const sellerRoutes = require('./routes/sellerRoutes');
 const handmadeRoutes = require('./routes/handmadeRoutes');
 const checkout = require('./routes/checkoutRoutes');
+const orderRoutes = require('./routes/orderRoutes');
+const paymentRoutes = require('./routes/paymentRoutes');
 
 const paypal = require("paypal-rest-sdk");
 
@@ -55,7 +57,9 @@ app.use(passport.session());
 app.use(cors(corsOptions));
 app.use(express.json()); 
 
- app.use('/api/auth', authRoutes);
+app.use('/api/payments', paymentRoutes);
+app.use('/api/orders', orderRoutes);
+app.use('/api/auth', authRoutes);
 app.use('/api/products', productsRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/choices', choicesRoutes);

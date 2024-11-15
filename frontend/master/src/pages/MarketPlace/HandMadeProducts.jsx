@@ -66,20 +66,6 @@ const HandMadeProducts = () => {
                 className="bg-white w-full h-56 lg:h-72 rounded-3xl p-6 shadow-lg flex flex-row"
               >
                 <div className="relative w-1/2 h-full bg-gray-200 rounded-2xl overflow-hidden">
-                  <div className="absolute rounded-full bg-white h-8 w-8 z-40 top-2 right-2 p-1 cursor-pointer">
-                    <svg
-                      className="text-red-600"
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  </div>
                   <img
                     className="relative h-full w-full object-cover"
                     src={product.image_url || 'https://example.com/sample-image.jpg'}

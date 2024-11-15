@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import cod from '../../assets/cod.png'
+import cod from '../../assets/cod.png';
 import { Link } from 'react-router-dom';
-
 
 function Checkout() {
   const [formData, setFormData] = useState({
     user_id: '',
-    payment_method: 'card',
+    payment_method: 'cash',
     card_holder_name: '',
     card_number: '',
     expiry_date: '',
@@ -55,7 +54,7 @@ function Checkout() {
       user_id: formData.user_id,
       payment_method: 'paypal',
       orderID: details.id,
-      amount: '92.00',
+      amount: localStorage.getItem('totalPrice'),
     };
     await handlePayment(paymentData);
   };
@@ -69,7 +68,7 @@ function Checkout() {
         window.paypal.Buttons({
           createOrder: (data, actions) => {
             return actions.order.create({
-              purchase_units: [{ amount: { value: '92.00' } }],
+              purchase_units: [{ amount: { value: localStorage.getItem('totalPrice') } }], // Adjust this value based on your pricing logic
             });
           },
           onApprove: async (data, actions) => {
@@ -95,16 +94,19 @@ function Checkout() {
       return;
     }
 
-    if (formData.payment_method === 'card') {
-      const paymentData = {
-        user_id: formData.user_id,
-        payment_method: 'card',
-        card_holder_name: formData.card_holder_name,
-        card_number: formData.card_number,
-        expiry_date: formData.expiry_date,
-        cvv: formData.cvv,
-        postal_code: formData.postal_code,
-      };
+    const paymentData = {
+      user_id: formData.user_id,
+      payment_method: formData.payment_method,
+      amount: '92.00', // Adjust the amount as needed
+    };
+
+    if (formData.payment_method === 'cash') {
+      paymentData.card_holder_name = formData.card_holder_name;
+      paymentData.card_number = formData.card_number;
+      paymentData.expiry_date = formData.expiry_date;
+      paymentData.cvv = formData.cvv;
+      paymentData.postal_code = formData.postal_code;
+
       await handlePayment(paymentData);
     } else if (formData.payment_method === 'paypal') {
       alert('Please complete the payment through PayPal.');
@@ -125,9 +127,7 @@ function Checkout() {
           <div className="grid md:grid-cols-3 gap-4">
             <div>
               <h3 className="text-3xl font-bold text-pinkRoot">01</h3>
-              <h3 className="text-xl font-bold text-gray-800 mt-1">
-                Personal Details
-              </h3>
+              <h3 className="text-xl font-bold text-gray-800 mt-1">Personal Details</h3>
             </div>
             <div className="md:col-span-2">
               <form>
@@ -164,12 +164,11 @@ function Checkout() {
               </form>
             </div>
           </div>
+
           <div className="grid md:grid-cols-3 gap-4 mt-12">
             <div>
               <h3 className="text-3xl font-bold text-greenRoot">02</h3>
-              <h3 className="text-xl font-bold text-gray-800 mt-1">
-                Shipping Address
-              </h3>
+              <h3 className="text-xl font-bold text-gray-800 mt-1">Shipping Address</h3>
             </div>
             <div className="md:col-span-2">
               <form>
@@ -188,18 +187,15 @@ function Checkout() {
                       className="px-4 py-3 bg-white text-gray-800 w-full text-sm border-2 rounded-md focus:border-blue-500 outline-none"
                     />
                   </div>
-                 
-                 
                 </div>
               </form>
             </div>
           </div>
+
           <div className="grid md:grid-cols-3 gap-4 mt-12">
             <div>
               <h3 className="text-3xl font-bold text-pinkRoot">03</h3>
-              <h3 className="text-xl font-bold text-gray-800 mt-1">
-                Payment method
-              </h3>
+              <h3 className="text-xl font-bold text-gray-800 mt-1">Payment method</h3>
             </div>
             <div className="md:col-span-2">
               <div className="grid gap-4 sm:grid-cols-2">
@@ -208,17 +204,12 @@ function Checkout() {
                     type="radio"
                     className="w-5 h-5 cursor-pointer"
                     name="payment_method"
-                    value="card"
-                    checked={formData.payment_method === 'card'}
+                    value="cash"
+                    checked={formData.payment_method === 'cash'}
                     onChange={handleChange}
                   />
-                  <label htmlFor="card" className="ml-4 flex gap-2 cursor-pointer">
-                    <img
-                      src={cod}
-                      className="w-[150px]"
-                      alt="card1"
-                    />
-                  
+                  <label htmlFor="cash" className="ml-4 flex gap-2 cursor-pointer">
+                    <img src={cod} className="w-[150px]" alt="card1" />
                   </label>
                 </div>
                 <div className="flex items-center">
@@ -230,51 +221,36 @@ function Checkout() {
                     checked={formData.payment_method === 'paypal'}
                     onChange={handleChange}
                   />
-                  <label
-                    htmlFor="paypal"
-                    className="ml-4 flex gap-2 cursor-pointer"
-                  >
-                    <img
-                      src="https://readymadeui.com/images/paypal.webp"
-                      className="w-20"
-                      alt="paypalCard"
-                    />
+                  <label htmlFor="paypal" className="ml-4 flex gap-2 cursor-pointer">
+                    <img src="https://readymadeui.com/images/paypal.webp" className="w-20" alt="paypalCard" />
                   </label>
+                  
                 </div>
               </div>
-              {formData.payment_method === 'card' && (
-                <div className="grid sm:grid-cols-4 gap-4 mt-4">
-             
-                  {/* Add other card payment fields */}
-                </div>
-              )}
-              {formData.payment_method === 'paypal' && (
-                <div id="paypal-button-container" className="my-4"></div>
+          
+              <div id="paypal-button-container"></div>
+              {!showPayPalButton && (
+                 <div className="flex justify-between items-center mt-8">
+                 <Link
+                   to="/"
+                   className="inline-flex justify-center items-center px-6 py-3 border border-purple-600 text-[white] rounded-md bg-greenRoot hover:bg-greenRoot transition-colors"
+                 >
+                   Back to Home
+                 </Link>
+       
+                 <button
+                   
+                   className="inline-flex justify-center items-center px-6 py-3 border border-purple-600 text-[white] rounded-md bg-[#0000FF] hover:bg-[#304bad] transition-colors"
+                   type="submit"
+                   onClick={handleSubmit}
+                 >
+                   Pay Now ({formData.payment_method === 'card' ? '$92.00' : ''})
+                 </button>
+               </div>
               )}
             </div>
           </div>
-          {/* <div className="flex flex-wrap justify-end gap-4 mt-12">
-            <button
-              type="button"
-              className="px-6 py-3 text-sm font-semibold tracking-wide bg-transparent border-2 text-gray-800 rounded-md hover:bg-gray-100"
-            >
-              Pay later
-            </button>
-            <button
-              type="submit"
-              className="px-6 py-3 text-sm font-semibold tracking-wide bg-blue-600 text-white rounded-md hover:bg-blue-700"
-              onClick={handleSubmit}
-            >
-              Pay now
-            </button>
-          </div> */}
         </div>
-        <Link
-                  to="/"
-                  className="inline-flex justify-center items-center px-6 py-3 border border-purple-600 text-[white] rounded-md bg-greenRoot hover:bg-greenRoot transition-colors"
-                >
-                  Back to Home
-                </Link>
       </div>
     </div>
   );

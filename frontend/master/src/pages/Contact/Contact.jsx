@@ -59,28 +59,38 @@ function Contact() {
                     alt="Contact Us"
                     className="w-full h-full lg:rounded-l-2xl rounded-2xl bg-blend-multiply bg-indigo-700"
                   />
-                  <div className="absolute bottom-0 w-full lg:p-11 p-5">
-                    <div className="bg-white rounded-lg p-6 block">
-                      <a href="javascript:;" className="flex items-center mb-6">
-                        <svg /* Phone Icon SVG */></svg>
-                        <h5 className="text-grayRoot text-base font-normal leading-6 ml-5">
-                          470-601-1911
-                        </h5>
-                      </a>
-                      <a href="javascript:;" className="flex items-center mb-6">
-                        <svg /* Email Icon SVG */></svg>
-                        <h5 className="text-grayRoot text-base font-normal leading-6 ml-5">
-                          Pagedone1234@gmail.com
-                        </h5>
-                      </a>
-                      <a href="javascript:;" className="flex items-center">
-                        <svg /* Address Icon SVG */></svg>
-                        <h5 className="text-grayRoot text-base font-normal leading-6 ml-5">
-                          654 Sycamore Avenue, Meadowville, WA 76543
-                        </h5>
-                      </a>
-                    </div>
-                  </div>
+               <div className="absolute bottom-0 w-full p-5 lg:p-11">
+  <div className="bg-white rounded-lg p-4 md:p-6 block">
+    <a href="javascript:;" className="flex items-center mb-4 md:mb-6">
+      <svg
+        /* Phone Icon SVG */
+        className="w-5 h-5 md:w-6 md:h-6 text-gray-500"
+      ></svg>
+      <h5 className="text-[white] text-sm md:text-base font-normal leading-5 md:leading-6 ml-3 md:ml-5">
+        +962 793828985
+      </h5>
+    </a>
+    <a href="javascript:;" className="flex items-center mb-4 md:mb-6">
+      <svg
+        /* Email Icon SVG */
+        className="w-5 h-5 md:w-6 md:h-6 text-gray-500"
+      ></svg>
+      <h5 className="text-[white] text-sm md:text-base font-normal leading-5 md:leading-6 ml-3 md:ml-5">
+        shecares@gmail.com
+      </h5>
+    </a>
+    <a href="javascript:;" className="flex items-center">
+      <svg
+        /* Address Icon SVG */
+        className="w-5 h-5 md:w-6 md:h-6 text-gray-500"
+      ></svg>
+      <h5 className="text-[white] text-sm md:text-base font-normal leading-5 md:leading-6 ml-3 md:ml-5">
+        Jordan, Amman
+      </h5>
+    </a>
+  </div>
+</div>
+
                 </div>
               </div>
             </div>

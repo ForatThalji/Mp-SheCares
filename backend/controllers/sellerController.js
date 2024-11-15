@@ -1,42 +1,73 @@
 const db = require('../config/db'); // تأكد من أن هذا هو المثيل الصحيح لـ Knex
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
+const multer = require('multer');
+const path = require('path');
 
-exports.addSeller = async (req, res) => {
-    const { first_name, last_name, email, password, address, phone_number } = req.body; // إزالة status من هنا
-    const profile_image = req.files?.profile_image;
-    const certificate = req.files?.certificate;
-    console.log('Request body:', req.body);
-
-    try {
-        // Hash the password
-        const hashedPassword = await bcrypt.hash(password, 10);
-
-        const newSeller = await db('Sellers').insert({
-            first_name,
-            last_name,
-            email,
-            password: hashedPassword, // استخدم كلمة المرور المشفرة
-            address,
-            phone_number,
-            profile_image, // تأكد من التعامل مع مسارات الملفات بشكل صحيح
-            certificate,
-            status: "active", // تعيين الحالة كـ "active" بشكل افتراضي
-            created_at: new Date(),
-            updated_at: new Date(),
-        });
-
-        return res.status(201).json({
-            message: 'Seller added successfully',
-            sellerId: newSeller[0],
-        });
-    } catch (error) {
-        console.error('Error adding seller:', error);
-        return res.status(500).json({
-            message: 'Error adding seller',
-            error: error.message,
-        });
+// Configure multer to store files in a local folder
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads/'); // Specify the directory for file storage
+    },
+    filename: (req, file, cb) => {
+        cb(null, `${Date.now()}_${file.originalname}`); // Use a timestamp to ensure unique filenames
     }
-};
+});
+
+const upload = multer({ storage: storage });
+
+exports.addSeller = [
+
+    upload.fields([{ name: 'profile_image' }, { name: 'certificate' }]),
+    async (req, res) => {
+        const { first_name, last_name, email, password, address, phone_number } = req.body;
+
+        // Validate required fields
+        if (!first_name || !last_name || !email || !password) {
+            return res.status(400).json({ error: 'First name, last name, email, and password are required' });
+        }
+
+        try {
+            // Hash the password
+            const hashedPassword = await bcrypt.hash(password, 10);
+
+            // Get file paths from multer upload
+            const profileImagePath = req.files?.profile_image ? path.join('uploads', req.files.profile_image[0].filename) : null;
+            const certificatePath = req.files?.certificate ? path.join('uploads', req.files.certificate[0].filename) : null;
+
+            // Insert seller data into the database
+            const [newSellerId] = await db('Sellers').insert({
+                first_name,
+                last_name,
+                email,
+                password: hashedPassword,
+                address,
+                phone_number,
+                profile_image: profileImagePath,
+                certificate: certificatePath,
+                status: "active",
+                created_at: new Date(),
+                updated_at: new Date(),
+            }).returning('id');
+
+            return res.status(201).json({
+                message: 'Seller added successfully',
+                sellerId: newSellerId,
+            });
+        } catch (error) {
+            console.error('Error adding seller:', error);
+            return res.status(500).json({
+                message: 'Error adding seller',
+                error: error.message,
+            });
+        }
+    }
+];
+
+
+
+
+
+
 
 
 exports.getSellers = async (req, res) => {

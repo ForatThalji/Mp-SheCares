@@ -29,7 +29,6 @@ const ProdDetails = () => {
 
     fetchProduct();
   }, [id]);
-
   const addToCart = async (productId, quantity = 1) => {
     if (product.stock === 0) {
       Swal.fire({
@@ -72,33 +71,45 @@ const ProdDetails = () => {
     setLoading(true);
     try {
       const userId = localStorage.getItem("userI");
-      const response = await axios.post('http://localhost:3001/api/cart/addtocart', {
+      // Add product to the cart
+      const cartResponse = await axios.post('http://localhost:3001/api/cart/addtocart', {
         product_id: productId,
         quantity,
         user_id: userId,
       });
-      console.log('Product added to cart:', response.data);
+      console.log('Product added to cart:', cartResponse.data);
+
+      // After adding to the cart, create an order
+      const totalPrice = product.price * quantity; // Calculate total price based on quantity
+      const paymentMethod = 'credit_card'; // Assuming payment method is fixed; modify as needed
+      const orderResponse = await axios.post('http://localhost:3001/api/orders/createorder', {
+        user_id: localStorage.getItem('userI'),
+        total_price: totalPrice,
+        payment_method: paymentMethod,
+      });
+
+      console.log('Order created:', orderResponse.data);
 
       Swal.fire({
         title: 'Product Added to Cart!',
-        text: 'Your skincare product has been successfully added to the cart.',
+        text: 'Your product has been successfully added to the cart and order created.',
         icon: 'success',
         timer: 5000,
         timerProgressBar: true,
         imageUrl: 'https://content.presentermedia.com/files/animsp/00007000/7277/stick_figure_shopping_cart_lg_wm.gif',
         imageHeight: 200,
-        imageAlt: 'Skincare Product',
+        imageAlt: 'Product Added',
         background: '#f4f4f9',
         color: 'black',
         confirmButtonColor: '#4CAF50',
       });
       
     } catch (error) {
-      console.error('Error adding to cart:', error);
+      console.error('Error adding to cart and creating order:', error);
 
       Swal.fire({
         title: 'Error!',
-        text: 'Failed to add product to cart. Please try again.',
+        text: 'Failed to add product to cart or create order. Please try again.',
         icon: 'error',
         confirmButtonText: 'Close',
       });
@@ -111,6 +122,7 @@ const ProdDetails = () => {
       }, 800);
     }
   };
+
 
   if (!product) {
     return (

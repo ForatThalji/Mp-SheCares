@@ -51,18 +51,18 @@ export default function About() {
   return (
     <div className="bg-gray-50">
       {/* About Section */}
-      <section className="mx-44 bg-gray-100">
+     <section className="mx-4 sm:mx-8 lg:mx-48 bg-gray-100">
         <div className="container mx-auto py-16 px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 ml-28 md:grid-cols-2 items-center gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 gap-8 items-center">
             <div className="max-w-lg">
-              <h2 className="text-3xl font-irish text-gray-900 sm:text-4xl">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-irish text-gray-900">
                 She Cares
               </h2>
-              <p className="mt-4 text-gray-600 text-lg">
+              <p className="mt-4 text-gray-600 text-base sm:text-lg">
                 At She Cares company, we believe in the power of nature to nurture your skin. Our mission is to provide high-quality skincare products made with natural ingredients, free from harsh chemicals and additives. We are passionate about helping you achieve radiant, healthy skin, and our products are designed to cater to all skin types and concerns. With a commitment to sustainability, we source our ingredients ethically and package them in eco-friendly materials. Our team of experts is dedicated to continuous innovation, ensuring that our products meet the highest standards of quality and efficacy. Join us on a journey to discover the best in skincare, because your skin deserves nothing but the best.
               </p>
             </div>
-            <div className="mt-12 md:mt-0">
+            <div className="mt-12 md:mt-0 hidden sm:block lg:mx-14">
               <img
                 src={about}
                 alt="About Us Image"

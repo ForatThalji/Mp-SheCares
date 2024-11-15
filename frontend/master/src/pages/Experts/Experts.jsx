@@ -52,38 +52,39 @@ function Experts() {
 
   return (
     <div>
-      <section className="mx-60 py-8 relative">
-        <div className="w-full max-w-7xl px-4 md:px-5 lg-6 mx-auto">
+      <section className="py-8 relative">
+        <div className="w-full max-w-7xl mx-auto px-4 md:px-5 lg:px-6">
           <h2 className="font-manrope font-bold text-4xl text-black text-center mb-11">
             Recommended Drs
           </h2>
-          <div className="grid grid-cols-2 py-6 border-y border-gray-200 mb-11">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {experts.map(expert => (
-              <div key={expert.id} className="col-span-12 lg:col-span-4 mb-6">
-                <div className="bg-grayRoot p-4 rounded-lg shadow-md flex items-center mr-12">
+              <div key={expert.id} className="bg-grayRoot p-4 rounded-lg shadow-md">
+                <div className="flex flex-col items-center">
                   <img
                     src={expert.profile_picture || dr4} 
                     alt={expert.name}
-                    className="w-32 h-32 rounded-full mr-4"
+                    className="w-32 h-32 rounded-full mb-4"
                   />
-                  <div>
+                  <div className="text-center">
                     <h3 className="font-medium text-lg mb-2">Name : {expert.name}</h3>
-                    <p className="text-gray-600 mb-2">specialty : {expert.specialty}</p>
-                    <p className="text-gray-600 mb-2">location : {expert.location}</p>
+                    <p className="text-gray-600 mb-2">Specialty : {expert.specialty}</p>
+                    <p className="text-gray-600 mb-2">Location : {expert.location}</p>
                     
                     <button
                       type="submit"
-                      className="w-36 border text-grayRoot bg-greenRoot text-sm p-1.5 rounded-lg mt-4 ml-[600px] hover:bg-greenRoot hover:text-white"
+                      className="w-full md:w-36 border text-grayRoot bg-greenRoot text-sm p-1.5 rounded-lg mt-4 hover:bg-greenRoot hover:text-white"
                     >
                       <Link to="/Appointment">Book Now</Link>
                     </button>
-                    <div className="flex flex-row gap-1 mt-4">
+
+                    <div className="flex justify-center gap-3 mt-4">
                       {expert.facebook_url && (
                         <a
                           href={expert.facebook_url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="mb-2 inline-block rounded bg-[#1877f2] px-6 py-2.5 text-xs font-medium uppercase leading-normal text-white shadow-md transition duration-150 ease-in-out hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg"
+                          className="inline-block rounded bg-[#1877f2] px-4 py-2 text-xs font-medium text-white shadow-md hover:shadow-lg"
                         >
                           <svg
                             fill="currentColor"
@@ -99,17 +100,17 @@ function Experts() {
                           href={expert.instagram_url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="mb-2 inline-block rounded bg-[#c13584] px-6 py-2.5 text-xs font-medium uppercase leading-normal text-white shadow-md transition duration-150 ease-in-out hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg"
+                          className="inline-block rounded bg-[#c13584] px-4 py-2 text-xs font-medium text-white shadow-md hover:shadow-lg"
                         >
                           <span className="[&>svg]:h-4 [&>svg]:w-4">
-  <svg
-    fill="currentColor"
-    viewBox="0 0 448 512"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z" />
-  </svg>
-</span>
+                            <svg
+                              fill="currentColor"
+                              viewBox="0 0 448 512"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z" />
+                            </svg>
+                          </span>
                         </a>
                       )}
                       {expert.whatsapp_url && (
@@ -117,17 +118,17 @@ function Experts() {
                           href={expert.whatsapp_url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="mb-2 inline-block rounded bg-[#25d366] px-6 py-2.5 text-xs font-medium uppercase leading-normal text-white shadow-md transition duration-150 ease-in-out hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg"
+                          className="inline-block rounded bg-[#25d366] px-4 py-2 text-xs font-medium text-white shadow-md hover:shadow-lg"
                         >
-                         <span className="[&>svg]:h-4 [&>svg]:w-4">
-  <svg
-    fill="currentColor"
-    viewBox="0 0 448 512"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7 .9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z" />
-  </svg>
-</span>
+                          <span className="[&>svg]:h-4 [&>svg]:w-4">
+                            <svg
+                              fill="currentColor"
+                              viewBox="0 0 448 512"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path d="M380.3 97.3c-64.3 0-117.7 53.4-117.7 117.7s53.4 117.7 117.7 117.7 117.7-53.4 117.7-117.7c0-64.3-53.4-117.7-117.7-117.7zm0 179.2c-34.2 0-61.5-27.3-61.5-61.5s27.3-61.5 61.5-61.5 61.5 27.3 61.5 61.5-27.3 61.5-61.5 61.5zm54.8-95.2c3.1-3.1 3.1-8.1 0-11.2l-22.8-22.8c-3.1-3.1-8.1-3.1-11.2 0l-9.3 9.3c-19.4-14.2-43.4-21.6-70-21.6-53.5 0-97.2 43.7-97.2 97.2 0 12.7 2.5 24.7 7.2 35.7l-37.6 37.6c-18.4-7.2-38.3-12-60.1-12-13.7 0-26.8 2.1-39.5 5.8-3.6 1.2-7.3 2.4-11 3.6-3.6 1.2-7.3 2.4-11 3.6-21.5 7.4-40.1 17.9-56.1 31.7-4.7 4.1-4.8 10.9-.2 14.7 3.9 4.1 10.9 4.2 14.7.2 26.4-23.6 60.7-37.3 98.7-37.3 79.9 0 143.8 63.9 143.8 143.8 0 9.9-1 19.5-3 28.9 10.8-11.7 19.4-25.5 26.4-40.5 11.8-20.2 18.5-43.3 18.5-67.5 0-55.1-22.8-105.3-59.5-142z" />
+                            </svg>
+                          </span>
                         </a>
                       )}
                     </div>

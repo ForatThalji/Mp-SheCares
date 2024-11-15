@@ -167,3 +167,53 @@ exports.logout = (req, res) => {
   res.status(200).json({ message: 'Logged out successfully' });
 };
 
+// usersController.js
+
+// Controller to update user information
+exports.updateUserInfo = async (req, res) => {
+  const { id } = req.params; // User ID from the request parameters
+  const {
+    first_name,
+    last_name,
+    email,
+    password,
+    phone_number,
+    address,
+    profile_picture,
+    date_of_birth,
+  } = req.body; // New user information from the request body
+
+  try {
+    // Validate the required fields
+    if (!id) {
+      return res.status(400).json({ message: 'User ID is required' });
+    }
+
+    // Update the user information in the database
+    const updatedUser = await db('Users')
+      .where({ id })
+      .update({
+        first_name,
+        last_name,
+        email,
+        password,
+        phone_number,
+        address,
+        profile_picture,
+        date_of_birth,
+        updated_at: db.fn.now(), // Update the timestamp
+      })
+      .returning('*'); // Return the updated row
+
+    if (updatedUser.length) {
+      // User updated successfully
+      return res.status(200).json({ message: 'User information updated successfully', user: updatedUser[0] });
+    } else {
+      // User not found
+      return res.status(404).json({ message: 'User not found' });
+    }
+  } catch (error) {
+    console.error('Error updating user information:', error);
+    return res.status(500).json({ message: 'An error occurred while updating user information', error });
+  }
+};

@@ -38,7 +38,14 @@ export default function AddRequest() {
           "Content-Type": "multipart/form-data"
         },
       });
-      console.log(response.data);
+      console.log(response.data.sellerId.id);
+      
+      // Assuming the response contains a seller ID after the successful creation of the seller
+      const sellerId = response.data.sellerId.id; // Adjust this according to your API response
+      // Store the seller ID in localStorage
+      localStorage.setItem("seller_id", sellerId);
+
+      alert('Seller added successfully!');
     } catch (error) {
       if (error.response) {
         console.error("Error adding seller:", error.response.data);
@@ -127,7 +134,7 @@ export default function AddRequest() {
               </div>
               <div className="mt-5">
                 <label className="block mb-2 text-sm font-medium text-gray-700">
-                  Upload Certificate:
+                  Upload Certificate from General Organization for Food and Drugs:
                 </label>
                 <input
                   className="border-2 border-green-500 rounded-lg w-full py-2 px-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-200"

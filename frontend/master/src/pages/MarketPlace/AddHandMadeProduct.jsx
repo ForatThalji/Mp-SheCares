@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export default function AddHandMadeProduct() {
   const [formData, setFormData] = useState({
@@ -8,8 +8,19 @@ export default function AddHandMadeProduct() {
     category: '',
     stock_quantity: '',
     image_url: '',
-    seller_id: ''
+    seller_id: '' // Initially set to empty string, will be updated with value from localStorage
   });
+
+  useEffect(() => {
+    // Retrieve the seller_id from localStorage when the component mounts
+    const storedSellerId = localStorage.getItem('seller_id');
+    if (storedSellerId) {
+      setFormData((prevData) => ({
+        ...prevData,
+        seller_id: storedSellerId, // Set the seller_id in formData state
+      }));
+    }
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -50,7 +61,7 @@ export default function AddHandMadeProduct() {
           
           <form className="p-8 space-y-6" onSubmit={handleSubmit}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {['name', 'price', 'description', 'category', 'stock_quantity', 'image_url', 'seller_id'].map((field) => (
+              {['name', 'price', 'description', 'category', 'stock_quantity', 'image_url'].map((field) => (
                 <div 
                   key={field}
                   className="transform hover:scale-[1.02] transition-all duration-300"
@@ -75,10 +86,17 @@ export default function AddHandMadeProduct() {
               ))}
             </div>
 
+            {/* Hidden seller_id input field */}
+            <input
+              type="hidden"
+              name="seller_id"
+              value={formData.seller_id}
+            />
+
             <div className="pt-4">
               <button
                 type="submit"
-                className="w-full bg-greenRoot  text-white py-3 px-6 rounded-lg font-semibold 
+                className="w-full bg-greenRoot text-white py-3 px-6 rounded-lg font-semibold 
                           transform hover:translate-y-[-2px] hover:shadow-lg transition-all duration-300 
                           focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2"
               >

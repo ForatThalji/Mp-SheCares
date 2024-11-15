@@ -7,17 +7,12 @@
   --background-color: #ecf0f1;
 }
 
-
 .headerImg{
  
   background-image: url('./assets/headerImg-removebg-preview.png');
   background-repeat: repeat-x;
   height: 150px;
-  /* position: -webkit-sticky; Safari */
-  /* position: sticky; */
-  /* top: 0;
-   */
-
+ 
 }
 .footer{
   margin-top: 100px;
@@ -56,38 +51,31 @@ rotate: 180deg;
 }
 
 
-.letsDisc{
-  /* margin-left: -120px; */
-  /* margin-right:55px ;*/
-   margin-left: 120px; 
-  
-  background-color: var(--green-color);
-}
 .leaf{
   margin-left: 600px;
   padding: 110px;
   padding-left: 80px;
 }
-.heroImg img{
-width: 300px;
-height: 300px;
-border-radius: 5px;
-/* background-color: aqua; */
+.heroImg img {
+  width: 300px;
+  height: 300px;
+  border-radius: 5px;
 }
-.heroTxt{
-width: 300px;
-height: 300px;
-/* background-color: blue; */
-position: relative;
-font-family: 'Irish Grover', sans-serif;
+
+.heroTxt {
+  width: 300px;
+  height: 300px;
+  position: relative;
+  font-family: 'Irish Grover', sans-serif;
 }
-.container .row{
+
+.container .row {
   display: flex;
 }
 
 #hero {
   padding: 50px 0;
-  margin-top:30px;
+  margin-top: 30px;
 }
 
 .container {
@@ -100,7 +88,6 @@ font-family: 'Irish Grover', sans-serif;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
- 
 }
 
 .heroTxt {
@@ -108,7 +95,6 @@ font-family: 'Irish Grover', sans-serif;
   text-align: left;
   margin-right: 20px;
   margin-left: 120px;
- 
 }
 
 .heroImg {
@@ -116,7 +102,6 @@ font-family: 'Irish Grover', sans-serif;
   text-align: right;
   margin-right: 120px;
   margin-left: 120px;
-  
 }
 
 .heroTxt p {
@@ -124,12 +109,47 @@ font-family: 'Irish Grover', sans-serif;
   margin-bottom: 20px;
 }
 
+/* Media Queries for small screens (max-width: 425px) */
+@media (max-width: 425px) {
+  /* Adjust text and image for smaller screens */
+  .heroTxt p {
+    font-size: 28px;  /* Smaller font size for mobile */
+  }
+
+  .heroTxt {
+    margin-left: 0;
+    text-align: center; /* Center text */
+  }
+
+  .heroImg {
+    text-align: center; /* Center the image */
+  }
+
+  .heroImg img {
+    width: 200px;  /* Make image smaller */
+    height: 200px;
+  }
+
+  .row {
+    flex-direction: column; /* Stack content vertically */
+    justify-content: center;
+  }
+
+  .container {
+    padding-left: 16px;
+    padding-right: 16px; /* Add padding for mobile */
+  }
+
+  /* Adjust the button to fit better on small screens */
+  button {
+    width: 100%;  /* Make button full-width */
+    padding: 12px;
+    font-size: 14px;
+  }
+}
 
 
-/* .heroImg {
-  position: relative;
-  animation: slideLeft 5s linear ;
-} */
+
 
 @keyframes slideLeft {
   0% {
@@ -145,14 +165,7 @@ font-family: 'Irish Grover', sans-serif;
   }
 }
 
-/* .btn_discover{
-margin-top:-20px ;
-margin-left: -304px;
-width: 140px;
-height: 50px;
-border-radius: 10px;
-background-color: #0056b3;
-} */
+
 button:hover {
   transform: scale(1.05);
 
@@ -191,11 +204,7 @@ margin-bottom: calc(0.7rem + 0.5vmin);
   padding: 10px;
 }
 
-/* *{
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-} */
+
 
 body, input,textarea, a{
   font-family: 'Roboto', sans-serif;
