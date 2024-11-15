@@ -1,15 +1,14 @@
-const db = require('../config/db'); // تأكد من أن هذا هو المثيل الصحيح لـ Knex
+const db = require('../config/db'); 
 const bcrypt = require('bcryptjs');
 const multer = require('multer');
 const path = require('path');
 
-// Configure multer to store files in a local folder
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'uploads/'); // Specify the directory for file storage
+        cb(null, 'uploads/'); 
     },
     filename: (req, file, cb) => {
-        cb(null, `${Date.now()}_${file.originalname}`); // Use a timestamp to ensure unique filenames
+        cb(null, `${Date.now()}_${file.originalname}`); 
     }
 });
 
@@ -63,13 +62,6 @@ exports.addSeller = [
     }
 ];
 
-
-
-
-
-
-
-
 exports.getSellers = async (req, res) => {
   try {
       const sellers = await db('Sellers').select('*'); // استرجاع جميع البيانات من جدول Sellers
@@ -83,7 +75,6 @@ exports.getSellers = async (req, res) => {
   }
 };
 
-// دالة لجلب بائع محدد حسب id
 exports.getSellers = async (req, res) => {
   try {
       const seller = await db('Sellers'); // البحث عن البائع بناءً على id

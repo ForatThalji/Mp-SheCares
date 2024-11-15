@@ -1,8 +1,39 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import test2 from '../../assets/test2.jpg';
 import quesremove from '../../assets/quesremove.png';
+
 function Test() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // تحقق إذا كان المستخدم مسجل الدخول من خلال التوكن أو أي طريقة تحقق أخرى
+    const token = localStorage.getItem('userI');
+    setIsLoggedIn(!!token); // إذا كان هناك توكن، اجعل isLoggedIn true
+  }, []);
+
+  const handleTestClick = () => {
+    if (isLoggedIn) {
+      navigate('/Test');
+    } else {
+      Swal.fire({
+        title: 'Login Required',
+        text: 'You need to log in to take the skin test.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Login',
+        cancelButtonText: 'Cancel',
+        reverseButtons: true,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate('/login'); // قم بتغيير المسار إلى صفحة تسجيل الدخول الخاصة بك
+        }
+      });
+    }
+  };
+
   return (
     <div>
       <section className="dark:bg-gray-900">
@@ -19,13 +50,11 @@ function Test() {
             </p>
             <p className="mb-6">To Know that, try Test skin!</p>
             <div>
-              <button className="flex items-center justify-center w-full sm:w-auto bg-greenRoot rounded hover:bg-red-600 px-5 py-4 text-sm text-grayRoot">
-                <Link
-                  to="/Test"
-                  className="block text-center w-full sm:w-auto py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-                >
-                  Test Now
-                </Link>
+              <button
+                onClick={handleTestClick}
+                className="flex items-center justify-center w-full sm:w-auto bg-greenRoot rounded hover:bg-red-600 px-5 py-4 text-sm text-grayRoot"
+              >
+                Test Now
               </button>
             </div>
           </div>

@@ -19,32 +19,32 @@ export default function About() {
     {
       icon: FileText,
       title: "Social Responsibility",
-      description: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+      description: "At She Cares, we are committed to making a positive impact on the community by promoting sustainable practices and supporting initiatives."
     },
     {
       icon: Lightbulb,
       title: "Innovation and Research",
-      description: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+      description: "At She Cares, we prioritize innovation and research to continuously improve our products and services."
     },
     {
       icon: Heart,
       title: "Customer Commitment",
-      description: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+      description: "At She Cares, we are deeply committed to understanding and meeting the unique needs of our customers    ."
     },
     {
       icon: Users,
       title: "Our Team",
-      description: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+      description: "Our team at She Cares is a dedicated group of professionals who are passionate about delivering exceptional products and services."
     },
     {
       icon: BookOpen,
       title: "Our Story",
-      description: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+      description: "Our story was simple but powerful to create a brand that empowers individuals to take care of themselves with high-quality, effective products."
     },
     {
       icon: Star,
       title: "Our Values",
-      description: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+      description: "Our values at She Cares are rooted in integrity, customer-centricity, and sustainability. We believe in delivering excellence, fostering innovation, and prioritizing the well-being of our customers and the planet."
     }
   ];
 
@@ -59,7 +59,7 @@ export default function About() {
                 She Cares
               </h2>
               <p className="mt-4 text-gray-600 text-base sm:text-lg">
-                At She Cares company, we believe in the power of nature to nurture your skin. Our mission is to provide high-quality skincare products made with natural ingredients, free from harsh chemicals and additives. We are passionate about helping you achieve radiant, healthy skin, and our products are designed to cater to all skin types and concerns. With a commitment to sustainability, we source our ingredients ethically and package them in eco-friendly materials. Our team of experts is dedicated to continuous innovation, ensuring that our products meet the highest standards of quality and efficacy. Join us on a journey to discover the best in skincare, because your skin deserves nothing but the best.
+                At She Cares website, we believe in the power of nature to nurture your skin. Our mission is to provide high-quality skincare products made with natural ingredients, free from harsh chemicals and additives. We are passionate about helping you achieve radiant, healthy skin, and our products are designed to cater to all skin types and concerns. With a commitment to sustainability, we source our ingredients ethically and package them in eco-friendly materials. Our team of experts is dedicated to continuous innovation, ensuring that our products meet the highest standards of quality and efficacy. Join us on a journey to discover the best in skincare, because your skin deserves nothing but the best.
               </p>
             </div>
             <div className="mt-12 md:mt-0 hidden sm:block lg:mx-14">

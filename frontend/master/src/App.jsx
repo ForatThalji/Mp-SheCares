@@ -48,7 +48,7 @@ function App() {
       <Provider store={store}>
         <div className='root'>
           {/* إظهار الهيدر إذا لم يكن المسار في قائمة الصفحات التي تريد إخفاء الهيدر فيها */}
-          {!hideHeaderPages.includes(location.pathname) && <Header />}
+          {!hideHeaderPages.includes(location.pathname) && <Header_2 />}
 
           <Routes>
             <Route path="/Reg" element={<Reg />} />

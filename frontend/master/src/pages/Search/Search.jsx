@@ -30,7 +30,7 @@ function Search() {
         </p>
       </div>
     ), {
-      duration: 5000, // Hide toast after 5 seconds
+      duration: 4000, // Hide toast after 5 seconds
     });
   }, []);
 
@@ -175,7 +175,7 @@ const ProductCard = ({ product, category_id, skinType, handleView }) => (
         </div>
         <div className="flex justify-between items-center">
           <span className="text-lg font-bold text-green-600">${product.price}</span>
-          <p className="text-sm text-gray-600 h-26 w-28 p-2 rounded bg-[#e8cbb5] font-semibold line-clamp-3">
+          <p className="text-sm text-gray-600 bg-yellow-200 rounded-full px-2 bg-[#e8cbb5]">
             {product.skin_type}
           </p>
         </div>

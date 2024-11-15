@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 export default function AddHandMadeProduct() {
   const [formData, setFormData] = useState({
@@ -8,19 +10,40 @@ export default function AddHandMadeProduct() {
     category: '',
     stock_quantity: '',
     image_url: '',
-    seller_id: '' // Initially set to empty string, will be updated with value from localStorage
+    seller_id: '' 
   });
+  
+  const [status, setStatus] = useState('accepted'); 
+  const navigate = useNavigate(); 
 
   useEffect(() => {
-    // Retrieve the seller_id from localStorage when the component mounts
     const storedSellerId = localStorage.getItem('seller_id');
+    localStorage.setItem('status', "accepted");
+
+    const storedStatus = localStorage.getItem('status'); 
+
     if (storedSellerId) {
       setFormData((prevData) => ({
         ...prevData,
-        seller_id: storedSellerId, // Set the seller_id in formData state
+        seller_id: storedSellerId, 
       }));
     }
+
+    if (storedStatus) {
+      setStatus(storedStatus); 
+    }
   }, []);
+
+  useEffect(() => {
+    if (status !== 'accepted') {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Pending Approval',
+        text: 'Please wait for acceptance from the administration.',
+      });
+      navigate('/'); 
+    }
+  }, [status, navigate]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -41,18 +64,30 @@ export default function AddHandMadeProduct() {
 
       const data = await response.json();
       if (response.ok) {
-        alert('Product added successfully!');
+        Swal.fire({
+          icon: 'success',
+          title: 'Product Added!',
+          text: 'The product was added successfully.',
+        });
       } else {
-        alert(`Error: ${data.message}`);
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: `Error: ${data.message}`,
+        });
       }
     } catch (error) {
       console.error('Error adding product:', error);
-      alert('Failed to add product.');
+      Swal.fire({
+        icon: 'error',
+        title: 'Failed to Add Product',
+        text: 'There was an error while adding the product.',
+      });
     }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-cyan-50 to-blue-100  p-8 animate-fadeIn">
+    <div className="min-h-screen bg-gradient-to-br from-cyan-50 to-blue-100 p-8 animate-fadeIn">
       <div className="max-w-2xl mx-auto border-2">
         <div className="bg-white rounded-2xl shadow-xl overflow-hidden transform hover:scale-[1.01] transition-all duration-300">
           <div className="bg-gradient-to-r from-cyan-500 to-blue-500 p-6">
@@ -86,7 +121,6 @@ export default function AddHandMadeProduct() {
               ))}
             </div>
 
-            {/* Hidden seller_id input field */}
             <input
               type="hidden"
               name="seller_id"
@@ -109,3 +143,4 @@ export default function AddHandMadeProduct() {
     </div>
   );
 }
+  

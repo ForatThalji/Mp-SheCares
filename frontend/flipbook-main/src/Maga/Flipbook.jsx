@@ -5,9 +5,11 @@ import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import pdf from './Total-Skincare-Guide.pdf';
 import ByteBeatJan2024 from './ByteBeatJan2024.pdf';
-import bookkk from './bookkk.pdf';
+import MakeupTips from './MakeupTips.pdf';
 import Skin from './Skin-Magazine-Dr-Vishal-Agarwal.pdf';
 import RMB from './RMB-Beauty-Guide.pdf';
+import bookkk from './bookkk.pdf';
+import HairCare from './HairCare.pdf'
 
 // اضف روابط منشورات انستغرام الخاصة بك هنا
 const instagramPosts = [
@@ -79,9 +81,9 @@ function Flipbook() {
     const [currentPdf, setCurrentPdf] = useState(pdf);
 
     const pdfOptions = [
-        { title: 'Skincare Guide', file: ByteBeatJan2024 },
-        { title: 'Makeup Tips', file: bookkk },
-        { title: 'Hair Care Essentials', file: Skin },
+        { title: 'Skincare Guide', file: bookkk },
+        { title: 'Makeup Tips', file: MakeupTips },
+        { title: 'Hair Care Essentials', file: HairCare },
         { title: 'Wellness Journal', file: RMB },
     ];
 

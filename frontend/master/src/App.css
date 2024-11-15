@@ -113,36 +113,35 @@ rotate: 180deg;
 @media (max-width: 425px) {
   /* Adjust text and image for smaller screens */
   .heroTxt p {
-    font-size: 28px;  /* Smaller font size for mobile */
+    font-size: 28px;  
   }
 
   .heroTxt {
     margin-left: 0;
-    text-align: center; /* Center text */
+    text-align: center; 
   }
 
   .heroImg {
-    text-align: center; /* Center the image */
+    text-align: center; 
   }
 
   .heroImg img {
-    width: 200px;  /* Make image smaller */
+    width: 200px;  
     height: 200px;
   }
 
   .row {
-    flex-direction: column; /* Stack content vertically */
+    flex-direction: column; 
     justify-content: center;
   }
 
   .container {
     padding-left: 16px;
-    padding-right: 16px; /* Add padding for mobile */
+    padding-right: 16px; 
   }
 
-  /* Adjust the button to fit better on small screens */
   button {
-    width: 100%;  /* Make button full-width */
+    width: 100%;  
     padding: 12px;
     font-size: 14px;
   }

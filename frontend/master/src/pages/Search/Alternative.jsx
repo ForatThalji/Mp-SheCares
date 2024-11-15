@@ -81,7 +81,7 @@ function Alternative() {
           <p className="text-sm text-gray-600 mt-2">{product.description}</p>
           <div className="mt-4 flex justify-between items-center">
             <span className="text-lg font-bold text-green-600">${product.price}</span>
-            <span className="text-sm text-gray-600 bg-yellow-200 rounded-full px-2">{product.skin_type}</span>
+            <span className="text-sm text-gray-600 bg-yellow-200 rounded-full px-2 bg-[#e8cbb5]">{product.skin_type}</span>
           </div>
           {/* <Link
             to="/ProdDetails"

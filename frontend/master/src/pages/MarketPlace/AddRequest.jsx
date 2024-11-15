@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import bazar2 from '../../assets/bazar2.jpg';
 
 export default function AddRequest() {
@@ -13,8 +13,10 @@ export default function AddRequest() {
     phone_number: "",
     profile_image: null,
     certificate: null,
-    status: "active"
+    status: "pending"
   });
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value, type, files } = e.target;
@@ -38,14 +40,20 @@ export default function AddRequest() {
           "Content-Type": "multipart/form-data"
         },
       });
-      console.log(response.data.sellerId.id);
-      
-      // Assuming the response contains a seller ID after the successful creation of the seller
-      const sellerId = response.data.sellerId.id; // Adjust this according to your API response
-      // Store the seller ID in localStorage
-      localStorage.setItem("seller_id", sellerId);
 
+      console.log(response.data.sellerId.id);
+
+      const sellerId = response.data.sellerId.id;
+      const status = response.data.sellerId.status;
+      localStorage.setItem("seller_id", sellerId);
+      localStorage.setItem("status", "accepted"); 
       alert('Seller added successfully!');
+
+      if (status === "accepted") {
+        navigate('/AddHandMadeProduct'); 
+      } else {
+        navigate('/'); 
+      }
     } catch (error) {
       if (error.response) {
         console.error("Error adding seller:", error.response.data);
@@ -58,21 +66,23 @@ export default function AddRequest() {
   return (
     <div className="min-h-screen py-20 bg-gray-100">
       <div className="container mx-auto">
-        <div className="flex flex-col lg:flex-row w-10/12 lg:w-8/12 bg-white rounded-xl mx-auto shadow-lg overflow-hidden border-2 ">
+        <div className="flex flex-col lg:flex-row w-10/12 lg:w-8/12 bg-white rounded-xl mx-auto shadow-lg overflow-hidden border-2">
           <div
             className="w-full lg:w-1/2 flex flex-col items-center justify-center p-12 bg-no-repeat bg-cover bg-center"
             style={{
               backgroundImage: "url('images/Register-Background.png')",
             }}
           >
-            <img 
-              src={bazar2} 
+            <img
+              src={bazar2}
               className="w-[380px] h-[400px] object-cover rounded-lg shadow-lg transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-xl"
               alt="Marketplace"
             />
           </div>
           <div className="w-full lg:w-1/2 py-16 px-12">
-            <h2 className="text-3xl font-semibold mb-4 text-gray-800 transition-transform duration-300 ease-in-out hover:scale-105">Join us now to grow your business!</h2>
+            <h2 className="text-3xl font-semibold mb-4 text-gray-800 transition-transform duration-300 ease-in-out hover:scale-105">
+              Join us now to grow your business!
+            </h2>
             <form onSubmit={handleSubmit}>
               <div className="grid grid-cols-2 gap-5">
                 <input

@@ -114,7 +114,7 @@ function Appointment() {
       Swal.fire({
         icon: 'error',
         title: 'Failed!',
-        text: 'Failed to create appointment. Please try again.',
+        text: 'Failed to create appointment. Please choose another time and try again.',
         confirmButtonText: 'Retry',
         background: 'white',
         color: '#721c24',
@@ -153,7 +153,7 @@ function Appointment() {
       Swal.fire({
         icon: 'error',
         title: 'Failed!',
-        text: 'Failed to create appointment. Please try again.',
+        text: 'Failed to create appointment. Please choose another time and try again..',
         confirmButtonText: 'Retry',
         background: 'white',
         color: '#721c24',

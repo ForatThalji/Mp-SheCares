@@ -48,7 +48,7 @@ function Pop() {
             </h2>
             <p className="">
               This skin test is not 100% accurate, but it is based on advanced scientific studies and analyses to ensure reliable and comprehensive results. We provide this test as an initial tool to better understand your skin's condition. If you have any additional questions or wish to receive a detailed analysis, you can
-              <Link to="../Consult1" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 dark:text-white">
+              <Link to="../Consuult1" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 dark:text-white">
                 <span className="text-greenRoot">book a consultation.</span>
               </Link>
               To view the results and get more details, please click the following link.
